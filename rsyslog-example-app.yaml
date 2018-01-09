@@ -17,4 +17,4 @@ spec:
       containers:
       - name: random-logger
         image: chrira/random-logger:latest
-        command: ["bash", "-c", "/entrypoint.sh | logger -s -n $RSYSLOG_SERVER_SERVICE_SERVICE_HOST -P $RSYSLOG_SERVER_SERVICE_SERVICE_PORT 2>&1"]
+        command: ["bash", "-c", "/entrypoint.sh 2>&1 | logger -s -n $RSYSLOG_SERVER_SERVICE_SERVICE_HOST -P $RSYSLOG_SERVER_SERVICE_SERVICE_PORT 2>&1"]

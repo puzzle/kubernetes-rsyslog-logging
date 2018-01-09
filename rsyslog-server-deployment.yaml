@@ -35,6 +35,11 @@ spec:
 ---
 
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rsyslog-d
+  labels:
+    app: rsyslog-server
 data:
   filelog.conf: |
     # http://www.rsyslog.com/doc/
@@ -50,7 +55,3 @@ data:
   imudp.conf: |
     module(load="imudp")
     input(type="imudp" port="514")
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: rsyslog-d
