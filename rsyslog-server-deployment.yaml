@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: rsyslog-server
+  labels:
+    app: rsyslog-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rsyslog-server
+  template:
+    metadata:
+      labels:
+        app: rsyslog-server
+    spec:
+      containers:
+      - name: rsyslog-server
+        image: jumanjiman/rsyslog:latest
+        ports:
+        - containerPort: 514
+          name: tcp
+          protocol: TCP
+        - containerPort: 514
+          name: upd
+          protocol: UDP
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/rsyslog.d
+      volumes:
+      - name: config-volume
+        configMap:
+          name: rsyslog-d
+
+---
+
+apiVersion: v1
+data:
+  filelog.conf: |
+    # http://www.rsyslog.com/doc/
+
+    # Output
+    $template DynaFile,"/var/log/container-%HOSTNAME%.log"
+
+    # Actions
+    *.* -?DynaFile              # one file for every device
+  imtcp.conf: |
+    module(load="imtcp")
+    input(type="imtcp" port="514")
+  imudp.conf: |
+    module(load="imudp")
+    input(type="imudp" port="514")
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: rsyslog-d

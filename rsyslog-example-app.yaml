@@ -1,0 +1,20 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: rsyslog-example-app
+  labels:
+    app: rsyslog-example-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rsyslog-example-app
+  template:
+    metadata:
+      labels:
+        app: rsyslog-example-app
+    spec:
+      containers:
+      - name: random-logger
+        image: chrira/random-logger:latest
+        command: ["bash", "-c", "/entrypoint.sh | logger -s -n $RSYSLOG_SERVER_SERVICE_SERVICE_HOST -P $RSYSLOG_SERVER_SERVICE_SERVICE_PORT 2>&1"]
