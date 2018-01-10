@@ -16,9 +16,11 @@ minikube start
 ### server
 Deploy rsyslog server with service.
 ```
-kubectl create -f rsyslog/rsyslog-server-deployment.yaml
-kubectl create -f rsyslog/rsyslog-server-service.yaml
+kubectl create -f rsyslog-server-deployment.yaml
+kubectl create -f rsyslog-server-service.yaml
 ```
+
+Log files will be written to */var/log*
 
 Rsyslog container is pulled from [jumanjiman/rsyslog](https://hub.docker.com/r/jumanjiman/rsyslog/).
 Which is build on this base: https://github.com/jumanjihouse/docker-rsyslog
@@ -42,5 +44,5 @@ Command with logging: ```/entrypoint.sh  2>&1 | logger -s 2>&1```
 Important: Create example application after the service.
 
 ```
-kubectl create -f rsyslog/rsyslog-example-app.yaml
+kubectl create -f rsyslog-example-app.yaml
 ```
