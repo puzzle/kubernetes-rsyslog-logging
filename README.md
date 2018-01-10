@@ -2,7 +2,7 @@
 Centralized container logs with rsyslog server and Linux logger.
 
 ## purpose
-Provide kubernetes configuration to establish a centralized logging solution. Tested on minikube an kubernetes 1.8
+Provide kubernetes configuration to establish a centralized logging solution. Tested with minikube and kubernetes 1.8
 
 * rsyslog server that takes logs and writes them to a log file for each host that sends logs.
 * example for a Docker container with overwritten command that sends it's log to the rsyslog server.
