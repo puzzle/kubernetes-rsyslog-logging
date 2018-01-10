@@ -46,3 +46,8 @@ Important: Create example application after the service.
 ```
 kubectl create -f rsyslog-example-app.yaml
 ```
+
+## log rotation
+Log rotation is needed to not fill the disk space.
+
+Add this sidecar container: https://hub.docker.com/r/blacklabelops/logrotate/
